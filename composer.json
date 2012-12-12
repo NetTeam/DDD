@@ -1,0 +1,17 @@
+{
+    "name": "netteam/ddd",
+    "type": "library",
+    "description": "Basic components for Domain Driven Design applications",
+    "authors": [
+        {
+            "name": "NetTeam Solutions",
+            "homepage": "http://netteam.pl"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "DDD": "src/" }
+    }
+}
