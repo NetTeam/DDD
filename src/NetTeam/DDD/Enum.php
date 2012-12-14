@@ -4,7 +4,7 @@ namespace NetTeam\DDD;
 
 abstract class Enum
 {
-    private $value;
+    protected $value;
 
     const __NULL = null;
 
@@ -64,7 +64,7 @@ abstract class Enum
         return false;
     }
 
-    private function isValid($value)
+    protected function isValid($value)
     {
         $refl = new \ReflectionClass($this);
 
