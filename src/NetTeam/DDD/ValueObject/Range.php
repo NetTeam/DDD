@@ -18,16 +18,28 @@ class Range
         $this->max = $max;
     }
 
+    /**
+     * @return integer|float
+     */
     public function getMin()
     {
         return $this->min;
     }
 
+    /**
+     * @return integer|float
+     */
     public function getMax()
     {
         return $this->max;
     }
 
+    /**
+     * Whether "this" contains whole given range
+     *
+     * @param  Range   $containedRange
+     * @return Boolean
+     */
     public function containsRange(Range $containedRange)
     {
         // starts before min
@@ -42,6 +54,12 @@ class Range
         return true;
     }
 
+    /**
+     * Whether "this" contains given value
+     *
+     * @param  integer|float $value
+     * @return Boolean
+     */
     public function contains($value)
     {
         return ($value >= $this->min) && ($value <= $this->max);

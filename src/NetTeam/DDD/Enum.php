@@ -17,21 +17,42 @@ abstract class Enum
         $this->value = $value;
     }
 
+    /**
+     * @return mixed
+     */
     final public function get()
     {
         return $this->value;
     }
 
+    /**
+     * Checks if $value is equal to value in enum
+     *
+     * @param  mixed   $value
+     * @return Boolean
+     */
     final public function is($value)
     {
         return $value === $this->value;
     }
 
+    /**
+     * Checks if value in enum is equal to $enum
+     *
+     * @param  Enum    $enum
+     * @return Boolean
+     */
     final public function equals(Enum $enum)
     {
         return $enum->get() === $this->get();
     }
 
+    /**
+     * Checks if $valuesList contains enum value
+     *
+     * @param  array   $valuesList
+     * @return Boolean
+     */
     final public function isOneOf(array $valuesList)
     {
         foreach ($valuesList as $val) {
