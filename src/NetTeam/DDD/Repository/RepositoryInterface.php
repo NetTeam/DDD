@@ -11,7 +11,8 @@ interface RepositoryInterface
     /**
      * Wyszykanie encji za pomoca klucza w repozytorium
      *
-     * @param mixed $id
+     * @param  mixed  $id
+     * @return object
      */
     public function find($id);
 
