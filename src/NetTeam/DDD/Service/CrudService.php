@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class CrudService implements CrudServiceInterface
 {
+
     private $class;
     private $entityManager;
     private $repository;
@@ -29,6 +30,9 @@ class CrudService implements CrudServiceInterface
         $this->repositoryMethods = $repositoryMethods;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function create()
     {
         $class = $this->class;
@@ -36,23 +40,40 @@ class CrudService implements CrudServiceInterface
         return new $class();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function find($id)
     {
         return $this->getRepository()->find($id);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function update($entity)
     {
         $this->getRepository()->persist($entity);
         $this->entityManager->flush();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function remove($entity)
     {
         $this->getRepository()->remove($entity);
         $this->entityManager->flush();
     }
 
+    /**
+     * Wykonuje metodę implementowaną przez repozytorium
+     *
+     * @param  string                  $name Nazwa metody
+     * @param  array                   $args Argumenty dla wywoływanej metody
+     * @return mixed
+     * @throws \BadMethodCallException Wyjątek rzucany w przypadku, gdy repozytorium nie implementuje wywołanej metody
+     */
     public function __call($name, $args)
     {
         if (in_array($name, $this->repositoryMethods)) {
