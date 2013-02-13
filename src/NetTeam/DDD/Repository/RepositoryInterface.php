@@ -17,6 +17,13 @@ interface RepositoryInterface
     public function find($id);
 
     /**
+     * Wyszykanie wszystkich encji w repozytorium
+     *
+     * @return object
+     */
+    public function findAll();
+
+    /**
      * Utrwalenie zmian encji w repozytorium
      *
      * @param mixed $entity

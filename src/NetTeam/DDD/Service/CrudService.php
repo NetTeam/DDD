@@ -51,6 +51,14 @@ class CrudService implements CrudServiceInterface
     /**
      * @inheritdoc
      */
+    public function findAll()
+    {
+        return $this->getRepository()->findAll();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function update($entity)
     {
         $this->getRepository()->persist($entity);
