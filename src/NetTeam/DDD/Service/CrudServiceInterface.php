@@ -24,6 +24,14 @@ interface CrudServiceInterface
     public function find($id);
 
     /**
+     * Wyszukanie wszystkich
+     *
+     *
+     * @return object
+     */
+    public function findAll();
+
+    /**
      * Zapisanie encji
      *
      * @param object $entity

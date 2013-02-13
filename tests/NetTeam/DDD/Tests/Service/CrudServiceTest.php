@@ -20,7 +20,7 @@ class CrudServiceTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->objectManager = $this->getMock('Doctrine\Common\Persistence\ObjectManager', array('flush', 'find', 'persist', 'remove', 'merge', 'clear', 'detach', 'refresh', 'getRepository', 'getClassMetadata', 'getMetadataFactory', 'initializeObject', 'contains'));
-        $this->repository = $this->getMock('NetTeam\DDD\Repository\RepositoryInterface', array('find', 'persist', 'remove', 'repositoryMethod'));
+        $this->repository = $this->getMock('NetTeam\DDD\Repository\RepositoryInterface', array('find', 'findAll', 'persist', 'remove', 'repositoryMethod'));
         $this->crudService = new CrudService('NetTeam\DDD\Test\Service\TestClass', $this->objectManager, $this->repository, array('repositoryMethod'));
     }
 
@@ -35,6 +35,12 @@ class CrudServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->repository->expects($this->once())->method('find');
         $this->crudService->find(1);
+    }
+
+    public function testObjectFindAll()
+    {
+        $this->repository->expects($this->once())->method('findAll');
+        $this->crudService->findAll();
     }
 
     public function testObjectUpdating()
