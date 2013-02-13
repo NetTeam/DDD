@@ -14,5 +14,10 @@
     },
     "autoload": {
         "psr-0": { "NetTeam\\DDD": "src/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
