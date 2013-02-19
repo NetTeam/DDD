@@ -2,27 +2,13 @@
 
 namespace NetTeam\DDD\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
+
 /**
  * Interfejs dla repozytoriów
  */
-interface RepositoryInterface
+interface RepositoryInterface extends ObjectRepository
 {
-
-    /**
-     * Wyszykanie encji za pomoca klucza w repozytorium
-     *
-     * @param  mixed  $id
-     * @return object
-     */
-    public function find($id);
-
-    /**
-     * Wyszykanie wszystkich encji w repozytorium
-     *
-     * @return object
-     */
-    public function findAll();
-
     /**
      * Utrwalenie zmian encji w repozytorium
      *
