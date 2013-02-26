@@ -2,19 +2,13 @@
 
 namespace NetTeam\DDD\Repository;
 
+use NetTeam\DDD\Repository\ReadOnlyRepositoryInterface;
+
 /**
  * Interfejs dla repozytoriów
  */
-interface RepositoryInterface
+interface RepositoryInterface extends ReadOnlyRepositoryInterface
 {
-
-    /**
-     * Wyszukanie encji po identyfikatorze.
-     *
-     * @param  mixed       $id
-     * @return null|object
-     */
-    public function find($id);
 
     /**
      * Utrwalenie zmian encji w repozytorium
