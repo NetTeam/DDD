@@ -2,8 +2,11 @@
 
 namespace NetTeam\DDD;
 
+use Doctrine\Common\Inflector\Inflector;
+
 abstract class Enum
 {
+
     protected $value;
 
     const __NULL = null;
@@ -70,4 +73,22 @@ abstract class Enum
 
         return in_array($value, array_values($refl->getConstants()));
     }
+
+    public function __toString()
+    {
+        $refl = new \ReflectionClass($this);
+
+        $className = $refl->getShortName();
+        $constName = '';
+
+        foreach ($refl->getConstants() as $const => $value) {
+            if ($value === $this->value) {
+                $constName = $const;
+                break;
+            }
+        }
+
+        return Inflector::camelize($className) . "." . Inflector::camelize(strtolower($constName));
+    }
+
 }
