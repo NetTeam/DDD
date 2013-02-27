@@ -66,6 +66,12 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($enum->isOneOf(array(ExampleEnum::ONE, ExampleEnum::TWO)));
         $this->assertFalse($enum->isOneOf(array(ExampleEnum::ONE, ExampleEnum::THREE)));
     }
+
+    public function testConvertingToString()
+    {
+        $this->assertEquals("exampleEnum.one", sprintf("%s", new ExampleEnum(ExampleEnum::ONE)));
+        $this->assertEquals("exampleEnum.twoWords", sprintf("%s", new ExampleEnum(ExampleEnum::TWO_WORDS)));
+    }
 }
 
 class ExampleEnum extends Enum
@@ -73,4 +79,5 @@ class ExampleEnum extends Enum
     const ONE   = 1;
     const TWO   = 2;
     const THREE = 3;
+    const TWO_WORDS = 4;
 }
