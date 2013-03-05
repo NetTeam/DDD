@@ -2,8 +2,9 @@
 
 namespace NetTeam\DDD\Repository;
 
-use NetTeam\DDD\Repository\DoctrineRepositoryInterface;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use NetTeam\DDD\Repository\DoctrineRepositoryInterface;
 
 /**
  * Repozytorium opakowujące repozytoria Doctrine'owe
@@ -22,9 +23,13 @@ class DoctrineRepository implements DoctrineRepositoryInterface
      * @param  string                                      $class    FQCN obiektu domenowego.
      * @throws \InvalidArgumentException                   Rzucany, gdy nie znaleziono menedżera dla klasy.
      */
-    public function __construct(ManagerRegistry $registry, $class)
+    public function __construct($registry, $class)
     {
-        $this->manager = $registry->getManagerForClass($class);
+        if ($registry instanceof RegistryInterface) {
+            $this->manager = $registry->getEntityManagerForClass($class);
+        } else {
+            $this->manager = $registry->getManagerForClass($class);
+        }
 
         if (null === $this->manager) {
             throw new \InvalidArgumentException(sprintf("Manager supporting class %s not found.", $class));
