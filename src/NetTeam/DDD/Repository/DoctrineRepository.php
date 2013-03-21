@@ -2,7 +2,6 @@
 
 namespace NetTeam\DDD\Repository;
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use NetTeam\DDD\Repository\DoctrineRepositoryInterface;
 
@@ -25,10 +24,14 @@ class DoctrineRepository implements DoctrineRepositoryInterface
      */
     public function __construct($registry, $class)
     {
-        if ($registry instanceof RegistryInterface) {
-            $this->manager = $registry->getEntityManagerForClass($class);
-        } else {
+        /**
+         * Fix dla BC BREAK w DoctrineBridge pomiędzy wersjami 2.0 a 2.1.
+         * W 2.1 wprowadzono standardowy interface z Doctrine Common.
+         */
+        if ($registry instanceof ManagerRegistry) {
             $this->manager = $registry->getManagerForClass($class);
+        } else {
+            $this->manager = $registry->getEntityManagerForClass($class);
         }
 
         if (null === $this->manager) {
