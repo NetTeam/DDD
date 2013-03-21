@@ -69,8 +69,9 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 
     public function testConvertingToString()
     {
-        $this->assertEquals("exampleEnum.one", sprintf("%s", new ExampleEnum(ExampleEnum::ONE)));
-        $this->assertEquals("exampleEnum.twoWords", sprintf("%s", new ExampleEnum(ExampleEnum::TWO_WORDS)));
+        $this->assertEquals('exampleEnum.one', new ExampleEnum(ExampleEnum::ONE));
+        $this->assertEquals('exampleEnum.twoWords', new ExampleEnum(ExampleEnum::TWO_WORDS));
+        $this->assertEquals('', new ExampleEnum(ExampleEnum::__NULL));
     }
 }
 
