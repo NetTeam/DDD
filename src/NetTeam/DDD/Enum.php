@@ -76,6 +76,10 @@ abstract class Enum
 
     public function __toString()
     {
+        if (self::__NULL === $this->value) {
+            return '';
+        }
+
         $refl = new \ReflectionClass($this);
 
         $className = $refl->getShortName();
