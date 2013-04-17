@@ -14,4 +14,4 @@ if ((!$loader = includeIfExists(__DIR__.'/../vendor/autoload.php')) && (!$loader
     exit(1);
 }
 
-$loader->add('NetTeam\DDD\Test', __DIR__);
+$loader->add('NetTeam\DDD\Tests', __DIR__);
