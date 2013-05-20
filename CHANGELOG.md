@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### v1.1.1 (2013-XX-XX) ####
+- Nowy value object Dict
+
 #### v1.1.0 (2013-03-21) ####
 - [BC BREAK] Usunięcie ORMRepository.
 - Generyczne repozytorium dla Doctrine. Pozwala na tworzenie repozytorium dla dowolnych klas obsługiwanych przez menedżera obiektów Doctrine (ORM, MongoDb).
