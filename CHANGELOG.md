@@ -1,7 +1,7 @@
 ## CHANGELOG ##
 
 #### v1.1.1 (2013-XX-XX) ####
-- Nowy value object Dict
+- Nowy value object `KeyValue`
 
 #### v1.1.0 (2013-03-21) ####
 - [BC BREAK] Usunięcie ORMRepository.

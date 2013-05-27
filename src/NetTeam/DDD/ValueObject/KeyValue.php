@@ -3,11 +3,11 @@
 namespace NetTeam\DDD\ValueObject;
 
 /**
- * Wartość słownikowa
+ * Klucz - wartość
  *
  * @author Krzysztof Menżyk <krzysztof.menzyk@netteam.pl>
  */
-class Dict
+class KeyValue
 {
     private $key;
     private $value;
