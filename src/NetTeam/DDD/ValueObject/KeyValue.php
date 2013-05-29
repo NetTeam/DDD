@@ -16,7 +16,7 @@ class KeyValue
      * @param mixed $key   Klucz
      * @param mixed $value Wartość
      */
-    public function __construct($key, $value)
+    public function __construct($key = null, $value = null)
     {
         $this->key   = $key;
         $this->value = $value;
