@@ -12,14 +12,14 @@ class DateRange
     private $start;
     private $end;
 
-    public function __construct(\DateTime $start, \DateTime $end)
+    public function __construct(\DateTime $start = null, \DateTime $end = null)
     {
         $this->start = $start;
         $this->end = $end;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getStart()
     {
@@ -27,7 +27,7 @@ class DateRange
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getEnd()
     {
