@@ -1,7 +1,9 @@
 ## CHANGELOG ##
 
-#### v1.1.1 (2013-XX-XX) ####
+#### v1.1.1 (2013-06-12) ####
+- Nowy value object `Money`
 - Nowy value object `KeyValue`
+- `DateRange` może przyjmować `null`
 
 #### v1.1.0 (2013-03-21) ####
 - [BC BREAK] Usunięcie ORMRepository.
