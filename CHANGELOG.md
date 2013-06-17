@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### v1.1.2 (2013-XX-XX) ####
+- Dodanie domyślnej wartości w konstuktorze `Enum`
+
 #### v1.1.1 (2013-06-12) ####
 - Nowy value object `Money`
 - Nowy value object `KeyValue`
