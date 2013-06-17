@@ -11,7 +11,7 @@ abstract class Enum
 
     const __NULL = null;
 
-    public function __construct($value, $validate = true)
+    public function __construct($value = self::__NULL, $validate = true)
     {
         if ($validate && !$this->isValid($value)) {
             throw new \UnexpectedValueException(sprintf('Given value "%s" is invalid', $value));

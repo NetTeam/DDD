@@ -18,6 +18,12 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         new ExampleEnum(ExampleEnum::ONE);
     }
 
+    public function testConstructWithDefaultValue()
+    {
+        $enum = new ExampleEnum();
+        $this->assertTrue($enum->is(ExampleEnum::__NULL));
+    }
+
     /**
      * @expectedException UnexpectedValueException
      */
