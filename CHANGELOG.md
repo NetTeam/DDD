@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### (2013-MM-DD) ####
+- Dodanie metody zwracającej posortowany alfabetycznie choice list w `EnumUtil`
+
 #### v1.1.2 (2013-06-26) ####
 - Dodanie domyślnej wartości w konstuktorze `Enum`
 
@@ -17,3 +20,4 @@
 
 #### v1.0.0 (2013-02-19) ####
 - Pierwsza wersja stabilna
+
