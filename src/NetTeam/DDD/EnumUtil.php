@@ -2,10 +2,12 @@
 
 namespace NetTeam\DDD;
 
+use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\Common\Inflector\Inflector;
 
 /**
  * @author Paweł A. Wacławczyk <pawel.waclawczyk@netteam.pl>
+ * @author Dawid Drelichowski <dawid.drelichowski@netteam.pl>
  */
 class EnumUtil
 {
@@ -46,6 +48,18 @@ class EnumUtil
         }
 
         return $choices;
+    }
+
+    public static function createSortedChoiceList(TranslatorInterface $translator, $enumObjectOrClass, $prefix = null)
+    {
+        $list = static::createChoiceList($enumObjectOrClass, $prefix);
+
+        $list = array_map(function($item) use ($translator) {
+            return $translator->trans($item);
+        }, $list);
+        natsort($list);
+
+        return $list;
     }
 
     private function __construct()
