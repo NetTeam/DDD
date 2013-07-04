@@ -1,6 +1,6 @@
 ## CHANGELOG ##
 
-#### (2013-MM-DD) ####
+#### v1.1.3 (2013-07-04) ####
 - Dodanie metody zwracającej posortowany alfabetycznie choice list w `EnumUtil`
 
 #### v1.1.2 (2013-06-26) ####
