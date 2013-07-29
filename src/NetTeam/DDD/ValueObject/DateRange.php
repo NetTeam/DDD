@@ -3,34 +3,42 @@
 namespace NetTeam\DDD\ValueObject;
 
 /**
- * Zakres dat
+ * DateTime range.
  *
  * @author Krzysztof Menżyk <krzysztof.menzyk@netteam.pl>
+ * @author Paweł A. Wacławczyk <p.a.waclawczyk@gmail.com>
  */
-class DateRange
+class DateRange extends Range
 {
-    private $start;
-    private $end;
-
-    public function __construct(\DateTime $start = null, \DateTime $end = null)
-    {
-        $this->start = $start;
-        $this->end = $end;
-    }
 
     /**
      * @return \DateTime|null
+     *
+     * @deprecated since version 1.1
      */
     public function getStart()
     {
-        return $this->start;
+        trigger_error('Method getStart() is deprecated since version 1.1 and will be removed in 1.2, use min() instead.', E_USER_DEPRECATED);
+
+        return $this->min();
     }
 
     /**
      * @return \DateTime|null
+     *
+     * @deprecated since version 1.1
      */
     public function getEnd()
     {
-        return $this->end;
+        trigger_error('Method getEnd() is deprecated since version 1.1 and will be removed in 1.2, use max() instead.', E_USER_DEPRECATED);
+
+        return $this->max();
+    }
+
+    protected function assertCorrectLimitType($value)
+    {
+        if (null !== $value && !$value instanceof \DateTime) {
+            throw new \DomainException(sprintf('Value must be instance of \DateTime or null, given instance of %s.', is_object($value) ? get_class($value) : gettype($value)));
+        }
     }
 }
