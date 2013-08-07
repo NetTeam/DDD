@@ -24,15 +24,8 @@ class Range
      * @param numeric $min
      * @param numeric $max
      */
-    public function __construct($min = null, $max = null, $validate = true)
+    public function __construct($min = null, $max = null)
     {
-        if ($validate) {
-            $this->assertCorrectLimitType($min);
-            $this->assertCorrectLimitType($max);
-
-            $this->assertCorrectLimits($min, $max);
-        }
-
         $this->min = $min;
         $this->max = $max;
     }
@@ -83,8 +76,11 @@ class Range
      * @param  \NetTeam\DDD\ValueObject\Range $containedRange
      * @return boolean
      */
-    public function containsRange($containedRange)
+    public function containsRange(Range $containedRange)
     {
+        $this->assertCorrectLimits($this);
+        $this->assertCorrectLimits($containedRange);
+
         $this->assertCorrectRangeType($containedRange);
 
         // check if current range is left-closed, and give is left-opened
@@ -143,9 +139,12 @@ class Range
      * @param  numeric          $max
      * @throws \DomainException
      */
-    protected function assertCorrectLimits($min, $max)
+    protected function assertCorrectLimits(Range $range)
     {
-        if (null !== $min && null !== $max && $min > $max) {
+        $this->assertCorrectLimitType($range->min());
+        $this->assertCorrectLimitType($range->max());
+
+        if (null !== $range->min() && null !== $range->max() && $range->min() > $range->max()) {
             throw new \DomainException(sprintf('Lower limit cannot be greater than upper limit.'));
         }
     }
@@ -156,7 +155,7 @@ class Range
      * @param  Range            $other
      * @throws \DomainException
      */
-    protected function assertCorrectRangeType($other)
+    protected function assertCorrectRangeType(Range $other)
     {
         if (!$other instanceof static) {
             throw new \DomainException(sprintf('Compared range must be instance of %s, given instance of %s.', get_class($this), is_object($other) ? get_class($other) : gettype($other) ));

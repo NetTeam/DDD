@@ -26,30 +26,6 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($range->contains($outOfRange));
     }
 
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfLowerLimitIsNotNullOrDateTimeThenThrowException()
-    {
-        $range = new MoneyRange("XYZ", new Money(100, 'PLN'));
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfUpperLimitIsNotNullOrDateTimeThenThrowException()
-    {
-        $range = new MoneyRange(new Money(100, 'PLN'), "XYZ");
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfLowerLimitIsLowerOrEqualThanUpperLimitThenThrowException()
-    {
-        $range = new MoneyRange(new Money(100, 'PLN'), new Money(10, 'PLN'));
-    }
-
     public function testIfLeftOpenedRangeDoesNotContainInLeftClosedRange()
     {
         $leftClosedRange = new MoneyRange(new Money(100, 'PLN'), null);
@@ -81,13 +57,5 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($range->containsRange($exceedRange));
         $this->assertTrue($range->containsRange($innerRange));
         $this->assertTrue($range->containsRange($sameRange));
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfCreatingMoneyRangeFromMoneyWithDifferentCurrenciesThenThrowException()
-    {
-        $range = new MoneyRange(new Money(100, 'PLN'), new Money(100, 'USD'));
     }
 }
