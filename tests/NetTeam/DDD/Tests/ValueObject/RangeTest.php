@@ -151,6 +151,13 @@ class RangeTest extends \PHPUnit_Framework_TestCase
 
         $range->containsRange(new RangeWithWrongLimitsTypes("X", "Y"));
     }
+
+    public function testIfInversedRangeLimitsAndValidateSetToFalseThenCreateRangeAndDoNotValidate()
+    {
+        $range = new Range(5, 1, false);
+
+        $this->assertInstanceOf('NetTeam\DDD\ValueObject\Range', $range);
+    }
 }
 
 class OtherTypeRange
