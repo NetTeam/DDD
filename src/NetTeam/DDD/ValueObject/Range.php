@@ -2,8 +2,6 @@
 
 namespace NetTeam\DDD\ValueObject;
 
-use Doctrine\Common\Comparable;
-
 /**
  * Range of numeric values.
  *
@@ -26,12 +24,14 @@ class Range
      * @param numeric $min
      * @param numeric $max
      */
-    public function __construct($min = null, $max = null)
+    public function __construct($min = null, $max = null, $validate = true)
     {
-        $this->assertCorrectLimitType($min);
-        $this->assertCorrectLimitType($max);
+        if ($validate) {
+            $this->assertCorrectLimitType($min);
+            $this->assertCorrectLimitType($max);
 
-        $this->assertCorrectLimits($min, $max);
+            $this->assertCorrectLimits($min, $max);
+        }
 
         $this->min = $min;
         $this->max = $max;
