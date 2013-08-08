@@ -36,28 +36,4 @@ class DateRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($range->containsRange($innerRange));
         $this->assertFalse($range->containsRange($outerRange));
     }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfLowerLimitIsNotNullOrDateTimeThenThrowException()
-    {
-        $range = new DateRange("XYZ", new \DateTime());
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfUpperLimitIsNotNullOrDateTimeThenThrowException()
-    {
-        $range = new DateRange(new \DateTime(), "XYZ");
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfLowerLimitIsLowerOrEqualThanUpperLimitThenThrowException()
-    {
-        $range = new DateRange(new \DateTime('2013-12-31'), new \DateTime('2013-01-01'));
-    }
 }

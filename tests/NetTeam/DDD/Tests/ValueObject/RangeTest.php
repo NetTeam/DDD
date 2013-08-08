@@ -111,74 +111,11 @@ class RangeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \DomainException
      */
-    public function testIfLowerLimitIsNotNullOrConveratbleToFloatThenThrowException()
-    {
-        $range = new Range("XYZ", 5);
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfUpperLimitIsNotNullOrConveratbleToFloatThenThrowException()
-    {
-        $range = new Range(5, "XYZ");
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfLowerLimitIsLowerOrEqualThanUpperLimitThenThrowException()
-    {
-        $range = new Range(5, 1);
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
-    public function testIfComparedRangeIsNotInstanceOfCorrectRangeTypeThenThrowException()
-    {
-        $range = new Range(1, 1);
-
-        $range->containsRange(new OtherTypeRange(1, 1));
-    }
-
-    /**
-     * @expectedException \DomainException
-     */
     public function testIfComparedRangeThatIsInstanceOfCorrectRangeTypeButHaveLimitsOfNotCorrectTypesThenThrowException()
     {
         $range = new Range(1, 1);
 
         $range->containsRange(new RangeWithWrongLimitsTypes("X", "Y"));
-    }
-
-    public function testIfInversedRangeLimitsAndValidateSetToFalseThenCreateRangeAndDoNotValidate()
-    {
-        $range = new Range(5, 1, false);
-
-        $this->assertInstanceOf('NetTeam\DDD\ValueObject\Range', $range);
-    }
-}
-
-class OtherTypeRange
-{
-    private $min;
-    private $max;
-
-    public function __construct($min, $max)
-    {
-        $this->min = $min;
-        $this->max = $max;
-    }
-
-    public function min()
-    {
-        return $this->min;
-    }
-
-    public function max()
-    {
-        return $this->max;
     }
 }
 
