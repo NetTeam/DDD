@@ -11,6 +11,18 @@ use NetTeam\DDD\ValueObject\Money;
  */
 class MoneyRange extends Range
 {
+    /**
+     * Check if min and max are correct limits values and have same currencies,
+     * then return currency of one.
+     *
+     * @return string
+     */
+    public function currency()
+    {
+        $this->assertCorrectLimits($this);
+
+        return $this->min()->currency();
+    }
 
     /**
      * {@inheritdoc}
@@ -22,9 +34,15 @@ class MoneyRange extends Range
         }
     }
 
-    protected function assertCorrectLimits($min, $max)
+    /**
+     * {@inheritdoc}
+     */
+    protected function assertCorrectLimits(Range $range)
     {
-        if (null !== $min && null !== $max && 1 === $min->compareTo($max)) {
+        $this->assertCorrectLimitType($range->min());
+        $this->assertCorrectLimitType($range->max());
+
+        if (null !== $range->min() && null !== $range->max() && 1 === $range->min()->compareTo($range->max())) {
             throw new \DomainException(sprintf('Lower limit cannot be greater than upper limit.'));
         }
     }
@@ -32,25 +50,33 @@ class MoneyRange extends Range
     /**
      * {@inheritdoc}
      */
-    public function containsRange($containedRange)
+    public function containsRange(Range $containedRange)
     {
+        $this->assertCorrectLimits($this);
+        $this->assertCorrectLimits($containedRange);
+
+        $this->assertCorrectRangeType($containedRange);
+
+        // check if current range is left-closed, and give is left-opened
         if (null !== $this->min() && null === $containedRange->min()) {
             return false;
         }
 
+        // check if current lower limit is lower or equal than given lower limit
         if (null !== $this->min() && null !== $containedRange->min() && 1 === $this->min()->compareTo($containedRange->min())) {
             return false;
         }
 
+        // check if current range is right-closed, and give is right-opened
         if (null !== $this->max() && null === $containedRange->max()) {
             return false;
         }
 
+        // check if current upper limit is greater or equal than given upper limit
         if (null !== $this->max() && null !== $containedRange->max() && -1 === $this->max()->compareTo($containedRange->max())) {
             return false;
         }
 
         return true;
     }
-
 }

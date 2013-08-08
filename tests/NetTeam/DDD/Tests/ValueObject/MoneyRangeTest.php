@@ -58,4 +58,19 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($range->containsRange($innerRange));
         $this->assertTrue($range->containsRange($sameRange));
     }
+
+    /**
+     * @expectedException \DomainException
+     */
+    public function testIfLimitsWithDifferentCurrenciesGivenWhenGettingCurrencyThenThrowException()
+    {
+        $range = new MoneyRange(new Money(100, 'PLN'), new Money(100, 'USD'));
+        $range->currency();
+    }
+
+    public function testIfLimitsWithSameCurrenciesGivenWhenGettingCurrencyThenReturnCurrency()
+    {
+        $range = new MoneyRange(new Money(100, 'PLN'), new Money(1000, 'PLN'));
+        $this->assertEquals('PLN', $range->currency());
+    }
 }
