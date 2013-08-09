@@ -11,19 +11,11 @@ use NetTeam\DDD\ValueObject\Percent;
  */
 class PercentTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testGettingPercentValue()
     {
-        $percent = new Percent(1.50);
+        $percent = new Percent(.15);
 
-        $this->assertEquals(1.5, $percent->get());
-    }
-
-    public function testConvertingToScalarValue()
-    {
-        $percent = new Percent(1.50);
-
-        $this->assertEquals(0.015, $percent->scalar());
+        $this->assertEquals(.15, $percent->value());
     }
 
     /**
@@ -33,5 +25,4 @@ class PercentTest extends \PHPUnit_Framework_TestCase
     {
         new Percent('Cannot convert to float.');
     }
-
 }

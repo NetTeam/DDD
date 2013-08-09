@@ -9,14 +9,13 @@ namespace NetTeam\DDD\ValueObject;
  */
 class Percent
 {
-
     /**
      * @var float
      */
     private $percent;
 
     /**
-     * @param  numeric                   $percent
+     * @param  numeric                   $percent Fractional value of percent (ex. .45 means 45%)
      * @throws \UnexpectedValueException
      */
     public function __construct($percent)
@@ -29,19 +28,10 @@ class Percent
     }
 
     /**
-     * @return float Percent value.
+     * @return float Fractional percent value.
      */
-    public function get()
+    public function value()
     {
         return $this->percent;
     }
-
-    /**
-     * @return float Percent value converted to scalar unit.
-     */
-    public function scalar()
-    {
-        return $this->get() / 100;
-    }
-
 }
