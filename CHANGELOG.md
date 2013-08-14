@@ -3,6 +3,7 @@
 #### v1.1.4 (2013-XX-XX) ####
 - Dodanie listenera Mockery do phpunit.xml.dist
 - Refaktoryzacja istniejących Value Objects, dodanie Money, Percent i MoneyRange.
+- Dodanie statycznych faktory w `Money`, `MoneyRange` i `Enum`
 
 #### v1.1.3 (2013-07-04) ####
 - Dodanie metody zwracającej posortowany alfabetycznie choice list w `EnumUtil`

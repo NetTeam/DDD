@@ -39,6 +39,21 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $enum->get());
     }
 
+    public function testStaticFactory()
+    {
+        $enum = ExampleEnum::ONE();
+
+        $this->assertEquals(new ExampleEnum(ExampleEnum::ONE), $enum);
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testStaticFactoryWhenInvalidConstant()
+    {
+        ExampleEnum::NON_EXISTENT();
+    }
+
     public function testGet()
     {
         $enum = new ExampleEnum(ExampleEnum::ONE);

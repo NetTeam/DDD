@@ -12,6 +12,30 @@ use NetTeam\DDD\ValueObject\MoneyRange;
  */
 class MoneyRangeTest extends \PHPUnit_Framework_TestCase
 {
+    public function testStaticFactory()
+    {
+        $range = MoneyRange::USD(123.45, 678.90);
+
+        $this->assertEquals(Money::USD(123.45), $range->min());
+        $this->assertEquals(Money::USD(678.90), $range->max());
+        $this->assertEquals('USD', $range->currency());
+    }
+
+    public function testStaticFactoryWhenDefaultArguments()
+    {
+        $range = MoneyRange::USD();
+
+        $this->assertNull($range->min());
+        $this->assertNull($range->max());
+    }
+
+    public function testStaticFactoryWhenNullArguments()
+    {
+        $range = MoneyRange::USD(null, null);
+
+        $this->assertNull($range->min());
+        $this->assertNull($range->max());
+    }
 
     public function testIfValueIsInRange()
     {

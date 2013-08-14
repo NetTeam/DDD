@@ -9,8 +9,32 @@ use NetTeam\DDD\ValueObject\Money;
  *
  * @author Paweł A. Wacławczyk <p.a.waclawczyk@gmail.com>
  */
-class MoneyRange extends Range
+final class MoneyRange extends Range
 {
+    /**
+     * Static factory (ex. MoneyRange::USD(123.45, 456.78))
+     *
+     * @param $method
+     * @param $arguments
+     *
+     * @return MoneyRange
+     */
+    public static function __callStatic($method, $arguments)
+    {
+        $min = null;
+        $max = null;
+
+        if (isset($arguments[0]) && null !== $arguments[0]) {
+            $min = new Money($arguments[0], $method);
+        }
+
+        if (isset($arguments[1]) && null !== $arguments[1]) {
+            $max = new Money($arguments[1], $method);
+        }
+
+        return new static($min, $max);
+    }
+
     /**
      * Check if min and max are correct limits values and have same currencies,
      * then return currency of one.

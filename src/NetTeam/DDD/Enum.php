@@ -21,6 +21,28 @@ abstract class Enum
     }
 
     /**
+     * Static factory (ex. ExampleEnum::ONE())
+     *
+     * @param $method
+     * @param $arguments
+     *
+     * @throws \BadMethodCallException When given constant is undefined
+     *
+     * @return Enum
+     */
+    public static function __callStatic($method, $arguments)
+    {
+        $class = get_called_class();
+        $refl = new \ReflectionClass($class);
+
+        if (!$refl->hasConstant($method)) {
+            throw new \BadMethodCallException(sprintf('Undefined class constant "%s" in "%s"', $method, $class));
+        }
+
+        return new static($refl->getConstant($method), false);
+    }
+
+    /**
      * @return mixed
      */
     final public function get()
