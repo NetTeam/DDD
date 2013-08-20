@@ -45,7 +45,13 @@ final class MoneyRange extends Range
     {
         $this->assertCorrectLimits($this);
 
-        return $this->min()->currency();
+        if (null !== $this->min()) {
+            return $this->min()->currency();
+        }
+
+        if (null !== $this->max()) {
+            return $this->max()->currency();
+        }
     }
 
     /**

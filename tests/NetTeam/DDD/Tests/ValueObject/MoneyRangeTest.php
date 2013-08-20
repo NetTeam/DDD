@@ -97,4 +97,25 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
         $range = new MoneyRange(new Money(100, 'PLN'), new Money(1000, 'PLN'));
         $this->assertEquals('PLN', $range->currency());
     }
+
+    public function testCurrencyWhenMinIsNull()
+    {
+        $range = new MoneyRange(null, Money::USD(123.45));
+
+        $this->assertEquals('USD', $range->currency());
+    }
+
+    public function testCurrencyWhenMaxIsNull()
+    {
+        $range = new MoneyRange(Money::USD(123.45), null);
+
+        $this->assertEquals('USD', $range->currency());
+    }
+
+    public function testCurrencyWhenBothAreNull()
+    {
+        $range = new MoneyRange(null, null);
+
+        $this->assertNull($range->currency());
+    }
 }
