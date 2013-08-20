@@ -9,7 +9,7 @@ use Doctrine\Common\Comparable;
  *
  * @author Paweł A. Wacławczyk <p.a.waclawczyk@gmail.com>
  */
-class Percent implements NumericInterface, Comparable
+class Percent implements NumericInterface, Comparable, \Serializable
 {
     /**
      * @var float
@@ -90,4 +90,21 @@ class Percent implements NumericInterface, Comparable
     {
         return -1 < $this->compareTo($other);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return serialize($this->percent);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized)
+    {
+        $this->percent = unserialize($serialized);
+    }
+
 }

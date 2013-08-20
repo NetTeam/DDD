@@ -54,4 +54,11 @@ class PercentTest extends \PHPUnit_Framework_TestCase
         $money = new Percent(0.5);
         $money->compareTo(200);
     }
+
+    public function testSerialize()
+    {
+        $percent = new Percent(0.56);
+
+        $this->assertEquals($percent, unserialize(serialize($percent)));
+    }
 }
