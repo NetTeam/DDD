@@ -135,8 +135,8 @@ class Range
     /**
      * Check if given values can be limits for current range.
      *
-     * @param  numeric          $min
-     * @param  numeric          $max
+     * @param Range $range
+     *
      * @throws \DomainException
      */
     protected function assertCorrectLimits(Range $range)

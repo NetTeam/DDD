@@ -4,6 +4,7 @@ namespace NetTeam\DDD\Tests\ValueObject;
 
 use NetTeam\DDD\ValueObject\Money;
 use NetTeam\DDD\ValueObject\MoneyRange;
+use NetTeam\DDD\ValueObject\Range;
 
 /**
  * @author Paweł A. Wacławczyk <p.a.waclawczyk@gmail.com>
@@ -37,7 +38,62 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($range->max());
     }
 
-    public function testIfValueIsInRange()
+    public function testCurrency()
+    {
+        $range = new MoneyRange(new Money(100, 'PLN'), new Money(1000, 'PLN'));
+        $this->assertEquals('PLN', $range->currency());
+    }
+
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage Min and max objects must have same currencies, min is PLN and max is USD
+     */
+    public function testCurrencyWhenDifferentCurrencies()
+    {
+        $range = new MoneyRange(new Money(100, 'PLN'), new Money(100, 'USD'));
+        $range->currency();
+    }
+
+    /**
+     * @expectedException \DomainException
+     */
+    public function testCurrencyWhenMinIsNotMoney()
+    {
+        $range = new MoneyRange(new \stdClass(), new Money(100, 'USD'));
+        $range->currency();
+    }
+
+    /**
+     * @expectedException \DomainException
+     */
+    public function testCurrencyWhenMaxIsNotMoney()
+    {
+        $range = new MoneyRange(new Money(100, 'PLN'), new \stdClass());
+        $range->currency();
+    }
+
+    public function testCurrencyWhenMinIsNull()
+    {
+        $range = new MoneyRange(null, Money::USD(123.45));
+
+        $this->assertEquals('USD', $range->currency());
+    }
+
+    public function testCurrencyWhenMaxIsNull()
+    {
+        $range = new MoneyRange(Money::USD(123.45), null);
+
+        $this->assertEquals('USD', $range->currency());
+    }
+
+    public function testCurrencyWhenBothAreNull()
+    {
+        $range = new MoneyRange(null, null);
+
+        $this->assertNull($range->currency());
+    }
+
+    public function testContains()
     {
         $min = new Money(1000, 'PLN');
         $max = new Money(10000, 'PLN');
@@ -50,7 +106,7 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($range->contains($outOfRange));
     }
 
-    public function testIfLeftOpenedRangeDoesNotContainInLeftClosedRange()
+    public function testLeftOpenedRangeDoesNotContainInLeftClosedRange()
     {
         $leftClosedRange = new MoneyRange(new Money(100, 'PLN'), null);
         $leftOpenedRange = new MoneyRange(null, null);
@@ -86,36 +142,47 @@ class MoneyRangeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \DomainException
      */
-    public function testIfLimitsWithDifferentCurrenciesGivenWhenGettingCurrencyThenThrowException()
+    public function testContainsRangeWhenMinIsNotMoney()
+    {
+        $range = new MoneyRange(new \stdClass(), new Money(100, 'PLN'));
+        $range->containsRange(MoneyRange::PLN());
+    }
+
+    /**
+     * @expectedException \DomainException
+     */
+    public function testContainsRangeWhenMaxIsNotMoney()
+    {
+        $range = new MoneyRange(new Money(100, 'PLN'), new \stdClass());
+        $range->containsRange(MoneyRange::PLN());
+    }
+
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage Min and max objects must have same currencies, min is PLN and max is USD
+     */
+    public function testContainsRangeWhenDifferentCurrencies()
     {
         $range = new MoneyRange(new Money(100, 'PLN'), new Money(100, 'USD'));
-        $range->currency();
+        $range->containsRange(MoneyRange::PLN());
     }
 
-    public function testIfLimitsWithSameCurrenciesGivenWhenGettingCurrencyThenReturnCurrency()
+    /**
+     * @expectedException \DomainException
+     */
+    public function testContainsRangeWhenGivenIsNotMoneyRange()
     {
-        $range = new MoneyRange(new Money(100, 'PLN'), new Money(1000, 'PLN'));
-        $this->assertEquals('PLN', $range->currency());
+        $range = new MoneyRange(new Money(100, 'PLN'), new Money(100, 'PLN'));
+        $range->containsRange(new Range());
     }
 
-    public function testCurrencyWhenMinIsNull()
+    /**
+     * @expectedException \DomainException
+     */
+    public function testContainsRangeWhenGivenHasDifferentCurrency()
     {
-        $range = new MoneyRange(null, Money::USD(123.45));
-
-        $this->assertEquals('USD', $range->currency());
-    }
-
-    public function testCurrencyWhenMaxIsNull()
-    {
-        $range = new MoneyRange(Money::USD(123.45), null);
-
-        $this->assertEquals('USD', $range->currency());
-    }
-
-    public function testCurrencyWhenBothAreNull()
-    {
-        $range = new MoneyRange(null, null);
-
-        $this->assertNull($range->currency());
+        $range = new MoneyRange(new Money(100, 'PLN'), new Money(100, 'PLN'));
+        $given = new MoneyRange(new Money(100, 'USD'), new Money(100, 'USD'));
+        $range->containsRange($given);
     }
 }

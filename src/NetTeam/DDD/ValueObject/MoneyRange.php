@@ -57,29 +57,6 @@ final class MoneyRange extends Range
     /**
      * {@inheritdoc}
      */
-    protected function assertCorrectLimitType($value)
-    {
-        if (null !== $value && !$value instanceof Money) {
-            throw new \DomainException(sprintf('Value must be instance of NetTeam\DDD\ValueObject\Money or null, given instance of %s.', is_object($value) ? get_class($value) : gettype($value)));
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function assertCorrectLimits(Range $range)
-    {
-        $this->assertCorrectLimitType($range->min());
-        $this->assertCorrectLimitType($range->max());
-
-        if (null !== $range->min() && null !== $range->max() && 1 === $range->min()->compareTo($range->max())) {
-            throw new \DomainException(sprintf('Lower limit cannot be greater than upper limit.'));
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function containsRange(Range $containedRange)
     {
         $this->assertCorrectLimits($this);
@@ -108,5 +85,41 @@ final class MoneyRange extends Range
         }
 
         return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function assertCorrectLimitType($value)
+    {
+        if (null !== $value && !$value instanceof Money) {
+            throw new \DomainException(sprintf('Value must be instance of NetTeam\DDD\ValueObject\Money or null, given instance of %s.', is_object($value) ? get_class($value) : gettype($value)));
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function assertCorrectLimits(Range $range)
+    {
+        $this->assertCorrectLimitType($range->min());
+        $this->assertCorrectLimitType($range->max());
+        $this->assertSameCurrencies();
+    }
+
+    /**
+     * Assert that min and max money objects have same currencies.
+     *
+     * @throws \DomainException
+     */
+    private function assertSameCurrencies()
+    {
+        if (null === $this->min() || null === $this->max()) {
+            return;
+        }
+
+        if ($this->min()->currency() !== $this->max()->currency()) {
+            throw new \DomainException(sprintf('Min and max objects must have same currencies, min is %s and max is %s', $this->min()->currency(), $this->max()->currency()));
+        }
     }
 }
