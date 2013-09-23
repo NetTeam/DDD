@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### v1.1.5 (2013-XX-XX) ####
+- Dodanie obiektów clock
+
 #### v1.1.4 (2013-08-27) ####
 - Dodanie listenera Mockery do phpunit.xml.dist
 - Refaktoryzacja istniejących Value Objects, dodanie Money, Percent i MoneyRange.
