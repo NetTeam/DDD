@@ -2,6 +2,8 @@
     "name": "netteam/ddd",
     "type": "library",
     "description": "Basic components for Domain Driven Design applications",
+    "keywords": ["DDD"],
+    "license": "MIT",
     "authors": [
         {
             "name": "NetTeam Solutions",
