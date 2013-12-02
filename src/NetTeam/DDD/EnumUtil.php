@@ -54,7 +54,7 @@ class EnumUtil
     {
         $list = static::createChoiceList($enumObjectOrClass, $prefix);
 
-        $list = array_map(function($item) use ($translator) {
+        $list = array_map(function ($item) use ($translator) {
             return $translator->trans($item);
         }, $list);
         natsort($list);

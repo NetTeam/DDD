@@ -13,16 +13,17 @@ use NetTeam\DDD\Repository\DoctrineRepositoryInterface;
  */
 class DoctrineRepository implements DoctrineRepositoryInterface
 {
-
     private $manager;
+    private $autoflush;
     protected $repository;
 
     /**
      * @param  Doctrine\Common\Persistence\ManagerRegistry $registry
-     * @param  string                                      $class    FQCN obiektu domenowego.
+     * @param  string                                      $class     FQCN obiektu domenowego.
+     * @param  boolean                                     $autoflush Flush after every add or remove action.
      * @throws \InvalidArgumentException                   Rzucany, gdy nie znaleziono menedżera dla klasy.
      */
-    public function __construct($registry, $class)
+    public function __construct($registry, $class, $autoflush = false)
     {
         /**
          * Fix dla BC BREAK w DoctrineBridge pomiędzy wersjami 2.0 a 2.1.
@@ -39,6 +40,7 @@ class DoctrineRepository implements DoctrineRepositoryInterface
         }
 
         $this->repository = $this->manager->getRepository($class);
+        $this->autoflush = $autoflush;
     }
 
     /**
@@ -55,6 +57,10 @@ class DoctrineRepository implements DoctrineRepositoryInterface
     public function persist($entity)
     {
         $this->manager->persist($entity);
+
+        if (true === $this->autoflush) {
+            $this->manager->flush();
+        }
     }
 
     /**
@@ -63,6 +69,10 @@ class DoctrineRepository implements DoctrineRepositoryInterface
     public function remove($entity)
     {
         $this->manager->remove($entity);
+
+        if (true === $this->autoflush) {
+            $this->manager->flush();
+        }
     }
 
     public function createQueryBuilder($alias)
@@ -78,5 +88,4 @@ class DoctrineRepository implements DoctrineRepositoryInterface
     {
         return call_user_func_array(array($this->repository, $name), $args);
     }
-
 }
