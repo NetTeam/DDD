@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### v1.1.6 (2012-12-04) ####
+- Add autoflush parameter to doctrine based repository implementation.
+
 #### v1.1.5 (2013-10-07) ####
 - Dodanie obiektów clock
 
