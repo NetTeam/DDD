@@ -21,4 +21,18 @@ class ClockTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('DateTime', $clock->now());
     }
 
+    /**
+     * Sprawdzenie czy Time pobiera datę pierwszego dnia aktualnego miesiąca przy metodzie
+     * 'firstDayOfMonth'
+     */
+    public function testFirstDayOfMonthIfReturnsFirstDayOfTheMonth()
+    {
+        $clock = new Clock();
+
+        $firstDayOfTheMonth = $clock->firstDayOfMonth();
+
+        $this->assertInstanceOf('DateTime', $firstDayOfTheMonth);
+        $this->assertEquals(new \DateTime('first day of this month'), $firstDayOfTheMonth);
+    }
+
 }
