@@ -1,6 +1,6 @@
 ## CHANGELOG ##
 
-#### v1.1.7 (2013-XX-XX) ####
+#### v1.1.7 (2013-01-09) ####
 - Add new method to clock 'firstDayOfMonth'
 
 #### v1.1.6 (2012-12-04) ####
