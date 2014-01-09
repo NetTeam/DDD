@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### v1.1.7 (2013-XX-XX) ####
+- Add new method to clock 'firstDayOfMonth'
+
 #### v1.1.6 (2012-12-04) ####
 - Add autoflush parameter to doctrine based repository implementation.
 

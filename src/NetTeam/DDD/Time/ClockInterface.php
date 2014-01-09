@@ -18,4 +18,11 @@ interface ClockInterface
      * @return \DateTime
      */
     public function now();
+
+    /**
+     * Pobiera datę pierwszego dnia aktualnego miesiąca
+     *
+     * @return \DateTime
+     */
+    public function firstDayOfMonth();
 }

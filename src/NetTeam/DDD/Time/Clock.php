@@ -14,4 +14,12 @@ class Clock implements ClockInterface
     {
         return new \DateTime();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function firstDayOfMonth()
+    {
+        return new \DateTime('first day of this month');
+    }
 }
