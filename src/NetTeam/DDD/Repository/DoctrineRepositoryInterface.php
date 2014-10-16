@@ -2,8 +2,6 @@
 
 namespace NetTeam\DDD\Repository;
 
-use NetTeam\DDD\Repository\RepositoryInterface;
-
 /**
  * Interfejs repozytoriów doctrine'owych, dostarczajacych dodatkowych funkcjonalności,
  * poza zdeklarowanymi w ObjectRepository.

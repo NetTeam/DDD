@@ -2,8 +2,6 @@
 
 namespace NetTeam\DDD\ValueObject;
 
-use NetTeam\DDD\ValueObject\Money;
-
 /**
  * Range of money values.
  *

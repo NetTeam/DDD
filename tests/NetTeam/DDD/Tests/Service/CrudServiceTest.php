@@ -47,7 +47,7 @@ class CrudServiceTest extends \PHPUnit_Framework_TestCase
     {
         $object = new TestClass();
 
-        $this->repository->expects($this->once())->method('persist');
+        $this->objectManager->expects($this->once())->method('persist');
         $this->objectManager->expects($this->once())->method('flush');
         $this->crudService->update($object);
     }

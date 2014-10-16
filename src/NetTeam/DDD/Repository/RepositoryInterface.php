@@ -2,8 +2,6 @@
 
 namespace NetTeam\DDD\Repository;
 
-use NetTeam\DDD\Repository\ReadOnlyRepositoryInterface;
-
 /**
  * Interfejs dla repozytoriów
  */

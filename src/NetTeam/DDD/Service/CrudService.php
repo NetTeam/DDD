@@ -19,7 +19,7 @@ class CrudService implements CrudServiceInterface
     /**
      * @param string              $class             FQN klasy
      * @param ObjectManager       $entityManager     manager encji
-     * @param RepositoryInterface $entityManager     repozytorium
+     * @param RepositoryInterface $repository        repozytorium
      * @param array               $repositoryMethods nazwy metod z repozytorium, ktore ma udostepniac serwis
      */
     public function __construct($class, ObjectManager $entityManager, RepositoryInterface $repository = null, $repositoryMethods = array())
@@ -61,7 +61,7 @@ class CrudService implements CrudServiceInterface
      */
     public function update($entity)
     {
-        $this->getRepository()->persist($entity);
+        $this->entityManager->persist($entity);
         $this->entityManager->flush();
     }
 

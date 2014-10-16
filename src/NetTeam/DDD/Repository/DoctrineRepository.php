@@ -3,7 +3,6 @@
 namespace NetTeam\DDD\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use NetTeam\DDD\Repository\DoctrineRepositoryInterface;
 
 /**
  * Repozytorium opakowujące repozytoria Doctrine'owe
