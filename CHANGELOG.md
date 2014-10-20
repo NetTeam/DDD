@@ -1,5 +1,8 @@
 ## CHANGELOG ##
 
+#### v1.1.8 (2014-XX-XX) ####
+- Make CRUD service independent of DoctrineRepository.
+
 #### v1.1.7 (2013-01-09) ####
 - Add new method to clock 'firstDayOfMonth'
 
