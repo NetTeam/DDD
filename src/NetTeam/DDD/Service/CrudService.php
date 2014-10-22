@@ -21,11 +21,6 @@ class CrudService implements CrudServiceInterface
     private $objectManager;
 
     /**
-     * @var ObjectRepository
-     */
-    private $repository;
-
-    /**
      * @var string[]
      */
     private $repositoryMethods;
@@ -103,12 +98,11 @@ class CrudService implements CrudServiceInterface
         throw new \BadMethodCallException("Method $name doesn't exists or isn't enabled in service");
     }
 
-    protected function getRepository()
+    /**
+     * @return ObjectRepository
+     */
+    private function getRepository()
     {
-        if (null === $this->repository) {
-            return $this->objectManager->getRepository($this->class);
-        }
-
-        return $this->repository;
+        return $this->objectManager->getRepository($this->class);
     }
 }
