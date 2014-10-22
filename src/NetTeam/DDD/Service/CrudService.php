@@ -2,7 +2,7 @@
 
 namespace NetTeam\DDD\Service;
 
-use NetTeam\DDD\Repository\RepositoryInterface;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -10,23 +10,30 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class CrudService implements CrudServiceInterface
 {
-
+    /**
+     * @var string
+     */
     private $class;
-    private $entityManager;
-    private $repository;
+
+    /**
+     * @var ObjectManager
+     */
+    private $objectManager;
+
+    /**
+     * @var string[]
+     */
     private $repositoryMethods;
 
     /**
-     * @param string              $class             FQN klasy
-     * @param ObjectManager       $entityManager     manager encji
-     * @param RepositoryInterface $repository        repozytorium
-     * @param array               $repositoryMethods nazwy metod z repozytorium, ktore ma udostepniac serwis
+     * @param string        $class             FQN klasy
+     * @param ObjectManager $entityManager     manager encji
+     * @param array         $repositoryMethods nazwy metod z repozytorium, ktore ma udostepniac serwis
      */
-    public function __construct($class, ObjectManager $entityManager, RepositoryInterface $repository = null, $repositoryMethods = array())
+    public function __construct($class, ObjectManager $entityManager, $repositoryMethods = array())
     {
-        $this->entityManager = $entityManager;
+        $this->objectManager = $entityManager;
         $this->class = $class;
-        $this->repository = $repository;
         $this->repositoryMethods = $repositoryMethods;
     }
 
@@ -61,8 +68,8 @@ class CrudService implements CrudServiceInterface
      */
     public function update($entity)
     {
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
+        $this->objectManager->persist($entity);
+        $this->objectManager->flush();
     }
 
     /**
@@ -70,8 +77,8 @@ class CrudService implements CrudServiceInterface
      */
     public function remove($entity)
     {
-        $this->getRepository()->remove($entity);
-        $this->entityManager->flush();
+        $this->objectManager->remove($entity);
+        $this->objectManager->flush();
     }
 
     /**
@@ -91,13 +98,11 @@ class CrudService implements CrudServiceInterface
         throw new \BadMethodCallException("Method $name doesn't exists or isn't enabled in service");
     }
 
-    protected function getRepository()
+    /**
+     * @return ObjectRepository
+     */
+    private function getRepository()
     {
-        if (null === $this->repository) {
-            return $this->entityManager->getRepository($this->class);
-        }
-
-        return $this->repository;
+        return $this->objectManager->getRepository($this->class);
     }
-
 }

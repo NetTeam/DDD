@@ -11,7 +11,6 @@ use NetTeam\DDD\Service\CrudService;
  */
 class CrudServiceTest extends \PHPUnit_Framework_TestCase
 {
-
     private $crudService;
     private $objectManager;
     private $repository;
@@ -19,9 +18,12 @@ class CrudServiceTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
+
         $this->objectManager = $this->getMock('Doctrine\Common\Persistence\ObjectManager', array('flush', 'find', 'persist', 'remove', 'merge', 'clear', 'detach', 'refresh', 'getRepository', 'getClassMetadata', 'getMetadataFactory', 'initializeObject', 'contains'));
-        $this->repository = $this->getMock('NetTeam\DDD\Repository\RepositoryInterface', array('find', 'findAll', 'findOneBy', 'findBy', 'getClassName', 'persist', 'remove', 'repositoryMethod'));
-        $this->crudService = new CrudService('NetTeam\DDD\Test\Service\TestClass', $this->objectManager, $this->repository, array('repositoryMethod'));
+        $this->repository = $this->getMock('Doctrine\Common\Persistence\ObjectRepository', array('find', 'findAll', 'findOneBy', 'findBy', 'getClassName', 'repositoryMethod'));
+        $this->objectManager->method('getRepository')->willReturn($this->repository);
+
+        $this->crudService = new CrudService('NetTeam\DDD\Test\Service\TestClass', $this->objectManager, array('repositoryMethod'));
     }
 
     public function testObjectCreation()
@@ -56,7 +58,7 @@ class CrudServiceTest extends \PHPUnit_Framework_TestCase
     {
         $object = new TestClass();
 
-        $this->repository->expects($this->once())->method('remove');
+        $this->objectManager->expects($this->once())->method('remove');
         $this->objectManager->expects($this->once())->method('flush');
         $this->crudService->remove($object);
     }
